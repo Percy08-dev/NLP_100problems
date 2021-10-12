@@ -15,7 +15,7 @@ def main():
     # 改行で行を切り出す. 
     data = data.split("\n")
 
-    pattern = re.compile("Category")
+    pattern = re.compile("Category:")
 
     [print(i) for i in data if re.search(pattern, i)]
 
