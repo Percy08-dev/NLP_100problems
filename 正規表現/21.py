@@ -1,7 +1,6 @@
 import json
 import gzip
 import re
-from typing import Pattern
 
 def main():
     name = "./jawiki-country.json.gz"
