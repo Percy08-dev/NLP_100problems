@@ -35,7 +35,7 @@ def stuck(data:list):
 # スタックで実装
 def stuck_analyze(data):
     template = stuck(data)
-    print(template)
+     # print(template)
     return template
 
 
@@ -46,7 +46,7 @@ def regex(data):
     # ※hogehogeには何かしらの文字列が入る
     pattern = re.compile("\{\{基礎情報.*\n((\|.*\n)|(\*.*\n))*}}\n")
     res = re.search(pattern, s).group()
-    print(res)
+    # print(res)
     return res
 
 
@@ -63,12 +63,27 @@ def main():
     x = int(input())
     if x:
         # スタック
-        stuck_analyze(data)
+        template = stuck_analyze(data)
     else:
         # 正規表現  
-        regex(data)
+        template = regex(data)
 
-    
+    # 辞書型にしまう
+    base_info = dict()
+    # |で始まり, 改行コードの次に|若しくは}が来ているものにヒットする正規表現
+    pattern = re.compile("\|.*=.*\n(?=\||})")
+    for i in re.findall(pattern, template):
+        # |を除去
+        row = i[1:]
+        # 空白を削除
+        row.replace(" ", "")
+        # =で分割
+        row = row.split("=")
+        # 辞書に追加
+        base_info[row[0]] = row[1]
+
+    [print(i) for i in list(base_info.items())]
+
 
 
 if __name__ == "__main__":
