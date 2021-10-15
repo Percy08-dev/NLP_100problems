@@ -2,6 +2,19 @@ import json
 import gzip
 import re
 
+def put_in_order(template:str):
+    # templateの整形. 複数行に分かれている物をtempate = valueの形に整形する. 
+    tmp = []
+    for i in template.split("\n")[1:]:
+        if len(i) == 0: continue
+        if i[0] == "|":
+            tmp.append(i)
+        else:
+            tmp[-1] += i
+
+    return "\n".join(tmp)
+
+
 # 正規表現よりもスタックで積んだ方が楽な気がしたので作ってみました. 
 # {}で解析を掛けて, はじめの基礎情報に掛かっていた{}が終了したら終了する. 
 def stuck(data:list):
@@ -35,7 +48,7 @@ def stuck(data:list):
 # スタックで実装
 def stuck_analyze(data):
     template = stuck(data)
-     # print(template)
+    # print(template)
     return template
 
 
@@ -67,11 +80,15 @@ def main():
     else:
         # 正規表現  
         template = regex(data)
+    
+    # templateの整形. (複数行に渡る正規表現はめんどくさい)
+    template = put_in_order(template)
 
     # 辞書型にしまう
     base_info = dict()
     # |で始まり, 改行コードの次に|若しくは}が来ているものにヒットする正規表現
-    pattern = re.compile("\|.*=.*\n(?=\||})")
+    # 複数行に対応できていない.  -> 複数行にまたがっているものを連結する. 
+    pattern = re.compile("\|.* = .*\n(?=\||})")
     for i in re.findall(pattern, template):
         # |を除去
         row = i[1:]

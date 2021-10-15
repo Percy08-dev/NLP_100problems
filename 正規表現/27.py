@@ -31,7 +31,15 @@ def rm_repl(o:re.Match):
     s = o.group()
     s = s.replace("\'", "")
     return s
-    
+
+
+def rm_ILink(o:re.Match):
+    s = o.group()
+    pattern1 = re.compile("(?=\|).*(?=(]]))")
+    if "|" in s:
+        return re.search(pattern1, s).group()
+    else:
+        return s[2:-2]
 
 def main():
     name = "./jawiki-country.json.gz"
@@ -46,16 +54,20 @@ def main():
     base_info = dict()
     pattern_25 = re.compile("\|.*=.*\n(?=\||})")
     pattern_26 = re.compile("\'{2,5}.*\'{2,5}")
+    pattern_27 = re.compile("\[\[.*\]\]")
     for i in re.findall(pattern_25, template):
         row = i[1:]
         row = row.replace(" ", "").replace("\n", "")
+        # 26
         row = re.sub(pattern_26, rm_repl, row)
+        # 27
+        row = re.sub(pattern_27, rm_ILink, row)
+        print(row)
         row = row.split("=")
         base_info[row[0]] = row[1]
 
     
-    for i in base_info.keys():
-        print(base_info[i])
+    
 
 
 
