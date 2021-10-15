@@ -88,14 +88,15 @@ def main():
     base_info = dict()
     # |で始まり, 改行コードの次に|若しくは}が来ているものにヒットする正規表現
     # 複数行に対応できていない.  -> 複数行にまたがっているものを連結する. 
-    pattern = re.compile("\|.* = .*\n(?=\||})")
+    # pattern = re.compile("\|.*=.*\n")
+    pattern = re.compile("\|.*=.*\n(?=\||})")
     for i in re.findall(pattern, template):
         # |を除去
         row = i[1:]
-        # 空白を削除
-        row.replace(" ", "")
+        # 空白を削除 -> 英語混じりだからしない方が良いかも
+        # row.replace(" ", "")
         # =で分割
-        row = row.split("=")
+        row = row.split("=", 1)
         # 辞書に追加
         base_info[row[0]] = row[1]
 

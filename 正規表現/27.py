@@ -57,13 +57,14 @@ def main():
     pattern_27 = re.compile("\[\[.*\]\]")
     for i in re.findall(pattern_25, template):
         row = i[1:]
-        row = row.replace(" ", "").replace("\n", "")
+        # row = row.replace(" ", "").replace("\n", "")
+        row = row.replace("\n", "")
         # 26
         row = re.sub(pattern_26, rm_repl, row)
         # 27
         row = re.sub(pattern_27, rm_ILink, row)
         # print(row)
-        row = row.split("=")
+        row = row.split("=", 1)
         base_info[row[0]] = row[1]
 
     [print(i) for i in base_info.items()]

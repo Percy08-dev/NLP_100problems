@@ -48,14 +48,14 @@ def main():
     pattern_26 = re.compile("\'{2,5}.*\'{2,5}")
     for i in re.findall(pattern_25, template):
         row = i[1:]
-        row = row.replace(" ", "").replace("\n", "")
+        # row = row.replace(" ", "").replace("\n", "")
+        row = row.replace("\n", "")
         row = re.sub(pattern_26, rm_repl, row)
-        row = row.split("=")
+        row = row.split("=", 1)
         base_info[row[0]] = row[1]
 
     
-    for i in base_info.keys():
-        print(base_info[i])
+    [print(i) for i in base_info.items()]
 
 
 
