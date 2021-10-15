@@ -62,11 +62,11 @@ def main():
         row = re.sub(pattern_26, rm_repl, row)
         # 27
         row = re.sub(pattern_27, rm_ILink, row)
-        print(row)
+        # print(row)
         row = row.split("=")
         base_info[row[0]] = row[1]
 
-    
+    [print(i) for i in base_info.items()]
     
 
 
