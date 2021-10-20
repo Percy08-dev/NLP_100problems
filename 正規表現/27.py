@@ -32,13 +32,22 @@ def rm_repl(o:re.Match):
     s = s.replace("\'", "")
     return s
 
-
+# 国章画像の方に課題アリ
+# 内部リンクとファイルの構造が似ていることが原因 -> ファイルを除外する
 def rm_ILink(o:re.Match):
     s = o.group()
-    pattern1 = re.compile("(?=\|).*(?=(]]))")
+    top = re.compile("\[\[ファイル:.*?]]")
+    pattern1 = re.compile("\|.*(?=]])")
+    # print("@@@", s, re.match(top, s))
+    # ファイルリンクを除外
+    if re.match(top, s) != None:
+        return s 
+    
     if "|" in s:
-        return re.search(pattern1, s).group()
+        #print("@@@1", re.search(pattern1, s).group())
+        return re.search(pattern1, s).group()[1:]
     else:
+        #print("@@@2", s[2:-2])
         return s[2:-2]
 
 def main():
@@ -54,14 +63,14 @@ def main():
     base_info = dict()
     pattern_25 = re.compile("\|.*=.*\n(?=\||})")
     pattern_26 = re.compile("\'{2,5}.*\'{2,5}")
-    pattern_27 = re.compile("\[\[.*\]\]")
+    pattern_27 = re.compile("\[\[.*?\]\]")
     for i in re.findall(pattern_25, template):
         row = i[1:]
         # row = row.replace(" ", "").replace("\n", "")
         row = row.replace("\n", "")
         # 26
         row = re.sub(pattern_26, rm_repl, row)
-        # 27
+        # 27 内部リンクの除去
         row = re.sub(pattern_27, rm_ILink, row)
         # print(row)
         row = row.split("=", 1)
