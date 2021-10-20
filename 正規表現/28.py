@@ -77,10 +77,11 @@ def rm_markup_c1(o:re.Match):
 
 
 def rm_htmltag(s:str):
-    p = re.compile("<.*>")
+    # non greeedly
+    p = re.compile("<.*?>")
+    # タグの除去
     res = re.sub(p, "", s)
-    if s != res:
-        print(s, " -> ", re.sub(p, "", s))
+    if s != res: print("@@@", s, " -> ", re.sub(p, "", s))
     
     return res
 
