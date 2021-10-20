@@ -54,11 +54,15 @@ def rm_ILink(o:re.Match):
 
 def rm_markup(s:str):
     # これもスタックで積んだ方が楽な気がする... 
-    # {{}}の除去
     # {{}}をnon greedyで探索
     pattern1 = re.compile("\{\{.*?\}\}")
+    # []をgreedly
+    pattern2 = re.compile("\[.*\]")
     # print("@@@", re.search(pattern1, s))
+    # {{}}の除去
     res = re.sub(pattern1, rm_markup_c1, s)
+    # []の除去
+    res = re.sub(pattern2, rm_markup_c2, res)
 
     return res
 
@@ -74,6 +78,17 @@ def rm_markup_c1(o:re.Match):
         return  s.split("|")[-1]
     else:
         return ""
+
+
+def rm_markup_c2(o:re.Match):
+    s = o.group()[2:-2]
+    print("@@@@@@", s)
+    
+    if "|" in s:
+        return s.split("|")[-1]
+    else:
+        return ""
+
 
 
 def rm_htmltag(s:str):
