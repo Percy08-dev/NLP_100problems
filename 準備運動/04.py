@@ -1,7 +1,6 @@
 import re
 def main():
     s = "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."
-    s = re.sub("[,.]", "", s)
     s = s.split()
     res = dict()
 
