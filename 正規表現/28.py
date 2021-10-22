@@ -82,7 +82,7 @@ def rm_markup_c1(o:re.Match):
 
 def rm_markup_c2(o:re.Match):
     s = o.group()[2:-2]
-    print("@@@@@@", s)
+    # print("@@@@@@", s)
     
     if "|" in s:
         return s.split("|")[-1]
