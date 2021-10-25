@@ -2,17 +2,16 @@ import random
 
 def rand_swap(s: str, n:int):
     x = s.split()
-    x = list(map(list, x))
+    x = [string_mix(i) for i in x]
 
-    for word in x:
-        if len(word) <= n:
-            continue
-        for i in range(1, len(word) - 2):
-            rnum = random.randint(1, len(word)-2)
-            word[i], word[rnum] = word[rnum], word[i]
-    
-    x = list(map("".join, x))
-    return x
+    return " ".join(x)
+
+def string_mix(word: str):
+    if len(word) <= 4:
+        return word
+    else:
+        word = [word[0]] + random.sample(word[1:-1], len(word[1:-1])) + [word[-1]]
+        return "".join(word)
 
 def main():
     s = input()
