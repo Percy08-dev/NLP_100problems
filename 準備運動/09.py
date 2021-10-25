@@ -2,12 +2,12 @@ import random
 
 def rand_swap(s: str, n:int):
     x = s.split()
-    x = [string_mix(i) for i in x]
+    x = [string_mix(i, n) for i in x]
 
     return " ".join(x)
 
-def string_mix(word: str):
-    if len(word) <= 4:
+def string_mix(word: str, n:int):
+    if len(word) <= n:
         return word
     else:
         word = [word[0]] + random.sample(word[1:-1], len(word[1:-1])) + [word[-1]]
