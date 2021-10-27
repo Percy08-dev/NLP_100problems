@@ -1,4 +1,3 @@
-from os import name
 import re
 from typing import List
 import matplotlib.pyplot as plt
@@ -81,7 +80,7 @@ def main():
     word_counts = word_counter(data)# 単語の出現数を算出
     word_counts.sort(key = lambda x:x[1], reverse=True) # タプルのindex値2のデータでソート, reverse = Trueで降順. ex) [["b", 1], ["a", 2]] -> [["a", 2], ["b", 1]]
 
-    drow(word_counts, 10)
+    drow(word_counts, 10)           # 第一引数のリストを第二引数の整数個グラフに描写する. 
 
 
 
