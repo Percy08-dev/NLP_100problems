@@ -10,7 +10,7 @@ def vartical_marge(*cols, sep = " "):
         return res
     
     for _ in range(len(data)):
-        res = [i.replace("\n", sep) + j for i, j in zip(res, data.pop())]
+        res = [j.replace("\n", sep) + i for i, j in zip(res, data.pop())]
 
     return res
 
