@@ -16,7 +16,7 @@ def main():
         # ラムダ式でリストの3番目の要素を取り出し, その要素をキーに降順ソート
         data.sort(key=lambda x:x[2], reverse=True)
 
-    [print(*i) for i in data]
+    [print("\t".join(map(str, i))) for i in data]
 
 if __name__ == "__main__":
     main()

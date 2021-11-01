@@ -7,6 +7,7 @@ def tail(f: io.BufferedReader, n:int):
 
     # 末尾へ移動
     f.seek(-1, 2)
+
     # ファイルサイズがチャンクサイズより小さい場合
     if chunk_size > f.tell()+1:
         f.seek(0, 0)
@@ -15,8 +16,8 @@ def tail(f: io.BufferedReader, n:int):
             for i in data:
                 print(i)
         else:
-            for i in reversed(range(n)):
-                print(data[-1])
+            for i in reversed(range(1, n+1)):
+                print(data[-i])
 
         return
     
@@ -31,12 +32,8 @@ def tail(f: io.BufferedReader, n:int):
         # 2byte 戻る
         f.seek(-2, 1)
 
-    # 末尾の空白の間に出現した改行をカウントする. 
-    data = f.read(chunk_size)
-    n += data.decode().count("\n")
-
     # 末尾から読み込み, readする分あらかじめシーク
-    f.seek(-chunk_size, 2)
+    f.seek(end - chunk_size, 0)
     ## print(f.tell())
 
     # 指定数を超えるまで読み込みを続ける
@@ -60,6 +57,7 @@ def tail(f: io.BufferedReader, n:int):
     data = "def"
     # EOFでreadすると文字列長は0になる. 
     while len(data) > 0:
+        # endで出力を終える. 
         if f.tell() + chunk_size > end:
             chunk_size = end - f.tell()
         data = f.read(chunk_size)
@@ -72,7 +70,7 @@ def main():
     lines = 5
     # normal
     with open("./popular-names.txt", "rb") as f:
-        tail(f, 5)
+        tail(f, lines)
     
 
 if __name__ == "__main__":

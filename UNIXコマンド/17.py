@@ -10,7 +10,7 @@ def main():
 
     # set型に順番はない為, listに変換しsort
     res = sorted(list(res))
-    print(res)
+    [print(i) for i in res]
 
 if __name__ == "__main__":
     main()

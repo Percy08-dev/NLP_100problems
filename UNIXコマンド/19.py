@@ -16,7 +16,8 @@ def main():
     # 辞書型のresからメソッドitemsでkeyとvalueのタプルを取得, そのタプルの1つ目の要素をキーに降順ソート
     res = sorted(res.items(), key= lambda x: x[1], reverse=True)
 
-    [print(*i) for i in res]
+    # [print(*i) for i in res]
+    [print("\t".join(map(str, reversed(i)))) for i in res]
 
 
 if __name__ == "__main__":

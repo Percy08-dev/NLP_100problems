@@ -7,7 +7,7 @@ def file_split(name: str, n:int):
     if not os.path.exists(div):
         os.mkdir(div)
     with open(name, "rb") as f:
-        # ファイルに含まれる行数のカウント
+        # ファイルに含まれる行数のカウント, ここも変更
         line_cnt = sum([1 for _ in f])
         # 1ファイルあたりの行数
         num = line_cnt // n

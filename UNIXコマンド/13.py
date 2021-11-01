@@ -1,7 +1,7 @@
-import pandas as pd
+#import pandas as pd
 import copy
 
-from pandas.io.parsers import read_table
+#from pandas.io.parsers import read_table
 
 def vartical_marge(*cols, sep = " "):
     data = copy.deepcopy(list(cols))
@@ -33,7 +33,7 @@ def main():
 
     data = vartical_marge(col1, col2, sep="\t")
     
-    with open("./new.txt", "w") as f:
+    with open("./new.txt", "w", newline="\n") as f:
         f.writelines(data)
 
 
