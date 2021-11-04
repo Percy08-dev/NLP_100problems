@@ -17,7 +17,7 @@ class Morph:
     # 以下でメソッドの定義も可能. 
     # 表示用メソッド. 
     def print(self):
-        print("surface:{}\t base:{}\t pos:{}\t pos1:{}".format(self.surface, self.base, self.pos, self.pos1))
+        print("surface:{}\tbase:{}\tpos:{}\tpos1:{}".format(self.surface, self.base, self.pos, self.pos1))
 
 
 # 
@@ -78,6 +78,48 @@ def init():
     return text
 
 
+# 係り元の処理
+def prev_process(phrase:List[str])->str or None:
+    flag = False
+    res = ""
+
+    for word in phrase:
+        if word.pos != "記号":
+            res += word.surface
+            # 単語が名詞の場合フラグを立てる. 
+            # ネストを下げて読みやすくするか、若干の効率をとるか.  
+            if word.pos == "名詞":
+                flag = True
+
+    if flag:
+        pass
+    else:
+        res = None
+
+    return res
+
+
+# 係り先の処理
+def next_process(phrase:List[str])->str or None:
+    flag = False
+    res = ""
+
+    for word in phrase:
+        if word.pos != "記号":
+            res += word.surface
+            # 単語が名詞の場合フラグを立てる. 
+            # ネストを下げて読みやすくするか、若干の効率をとるか.  
+            if word.pos == "動詞":
+                flag = True
+
+    if flag:
+        pass
+    else:
+        res = None
+    
+    return res
+
+
 def main():
     text = init()   #41 の処理を行う. 
 
@@ -85,38 +127,11 @@ def main():
     NaV = []
     for sentence in text:
         for phrase in sentence:
-            bef = ""            # 係り元
-            aft = ""            # 係り先
-            # 前半:名詞のフラグ, 後半:動詞のフラグ
-            flag = False
+            # phraseのmorphsはリストにclass Morphを内包する形式（class Chunkの内容）
+            bef = prev_process(phrase.morphs)                           # 係り元
+            aft = next_process(sentence[phrase.dst].morphs)             # 係り先
 
-            # 係り元の処理
-            for word in phrase.morphs:
-                if word.pos != "記号":
-                    bef += word.surface
-                    # 単語が名詞の場合フラグを立てる. 
-                    # ネストを下げて読みやすくするか、若干の効率をとるか.  
-                    if word.pos == "名詞":
-                        flag = True
-            
-            # 係り元文節で名詞を含まなかった場合, 次のループへ. 若干の枝切
-            if not(flag):
-                continue
-            else:
-                flag = False        # フラグの初期化
-
-            # 係り先の処理
-            for word in sentence[phrase.dst].morphs:
-                if word.pos != "記号":
-                    aft += word.surface
-                    # 単語が名詞の場合フラグを立てる. 
-                    # ネストを下げて読みやすくするか、若干の効率をとるか.  
-                    if word.pos == "動詞":
-                        flag = True
-
-            # リストへ値の追加
-            # フォーマットメソッドで文字列を作成する. 
-            if flag:
+            if bef != None and aft != None:
                 NaV.append("{}\t{}".format(bef, aft))
 
 

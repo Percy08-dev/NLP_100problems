@@ -17,7 +17,7 @@ class Morph:
     # 以下でメソッドの定義も可能. 
     # 表示用メソッド. 
     def print(self):
-        print("surface:{}\t base:{}\t pos:{}\t pos1:{}".format(self.surface, self.base, self.pos, self.pos1))
+        print("surface:{}\tbase:{}\tpos:{}\tpos1:{}".format(self.surface, self.base, self.pos, self.pos1))
 
 
 # 
