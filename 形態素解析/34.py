@@ -23,14 +23,22 @@ def init(name:str):
     return res
 
 
-def noun_phrase_extractor(data:List[List[dict]]) -> list:
-    res = set()
-
+def noun_greedy_extractor(data:List[List[dict]]) -> list:
+    temp = ""
+    res = set(temp)
+    
     for sentence in data:
-        # 3単語1組で見ていくため, n単語の文ならばn-2回移動が必要である. 
-        for i in range(len(sentence) - 2):
-            if sentence[i]["pos"] == "名詞" and sentence[i+1]["surface"] == "の" and sentence[i+2]["pos"] == "名詞":
-                res.add(sentence[i]["surface"] + sentence[i+1]["surface"] + sentence[i+2]["surface"])
+        for word in sentence:
+            if word["pos"] == "名詞":
+                temp += word["surface"]
+            elif len(temp) > 0:
+                res.add(temp)
+                temp = ""
+        else:
+            res.add(temp)
+            temp = ""
+
+    res.remove("")
 
     return list(res)
 
@@ -38,10 +46,10 @@ def noun_phrase_extractor(data:List[List[dict]]) -> list:
 def main():
     name = "./neko.txt.mecab"       # ファイル名
     data = init(name)               # 30までの処理を行う. 
-    phrase = noun_phrase_extractor(data)
+    phrase = noun_greedy_extractor(data)
 
     print(len(phrase))
-    print(phrase[0:10])
+    print(sorted(phrase, key = lambda x:len(x), reverse=True)[0:10])
 
 
 

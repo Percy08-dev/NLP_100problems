@@ -54,9 +54,9 @@ def drow(data:list, n:int):
     # 日本語を使用する場合, フォントを指定する必要がある. 
     plt.rcParams["font.family"] = "MS Gothic"
 
-    # 縦軸の設定
-    plt.xlabel("出現文字")
     # 横軸の設定
+    plt.xlabel("出現単語")
+    # 縦軸の設定
     plt.ylabel("Count")
 
     # 横軸のデータ

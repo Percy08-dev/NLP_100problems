@@ -20,7 +20,7 @@ def main():
     categorys = [i for i in data if re.search(pattern, i)]
     ## [print(i) for i in categorys]
     # Categoryの右側を抽出. この時最後は]という条件を付けることで, 0番目の要素を除く. 
-    pattern = re.compile(":.*]")
+    pattern = re.compile(":.*?]")
     category_names = [re.search(pattern, i) for i in categorys]
     # 先頭の:を除去
     category_names = [i.group()[1:] for i in category_names if i != None]
