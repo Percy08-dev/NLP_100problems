@@ -1,7 +1,7 @@
 from typing import *
 from morph_class import Morph       
 from morph_class import Chunck      
-from section4_init import init      
+from section5_init import init      
 import sys
 
 def verb_case_pattern_extraction(text:List[List[Chunck]]):
@@ -17,7 +17,7 @@ def verb_case_pattern_extraction(text:List[List[Chunck]]):
                 continue
 
             particles, flame, noun = particle_befor_verb_ext(sentence_chunks, index)
-            
+
             if len(particles) > 0 and noun + "を" in flame:
                 flame.remove(noun + "を")      # サ変接続名詞を削除
                 res.append("{}を{}\t{}\t{}".format(noun, base, " ".join(particles), " ".join(flame)))   

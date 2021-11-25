@@ -2,7 +2,7 @@ import re
 from typing import *
 from morph_class import Morph       
 from morph_class import Chunck      
-from section4_init import init      
+from section5_init import init      
 
 def root_from_noun(text:List[List[Chunck]]):
     phrase_path = []                        # 戻り値
@@ -14,12 +14,15 @@ def root_from_noun(text:List[List[Chunck]]):
                     break
             else:                           # breakで抜けなかった場合処理を行わない
                 continue
-            phrase_path.append(to_root(sentence, mem.srcs, mem.dst))
+            phrase_path.append(to_root(sentence, mem))
 
     return phrase_path 
 
 
-def to_root(sentence: List[Chunck], id, next):
+def to_root(sentence: List[Chunck], phrase:Chunck):
+    id = phrase.srcs
+    next = phrase.dst
+    
     path = [sentence[id].join()]
     while next != -1:                       # 末尾まで探索
         path.append(sentence[next].join())  # 句を追加

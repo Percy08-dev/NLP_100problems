@@ -1,7 +1,7 @@
 from typing import *
 from morph_class import Morph       
 from morph_class import Chunck      
-from section4_init import init      
+from section5_init import init      
 import sys
 
 def verb_case_pattern_extraction(text:List[List[Chunck]]):

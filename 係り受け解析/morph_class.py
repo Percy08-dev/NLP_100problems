@@ -29,8 +29,10 @@ class Chunck:
         self.srcs = srcs        # 係り受け元インデックス
 
     # 以下メソッド
-    def join(self, sep = ""):
+    def join(self, sep = "", start = 0, end = None, exclude_symbol = False)->str:
         res = ""
-        for i in self.morphs:
+        for i in self.morphs[start:end]:
+            if exclude_symbol and i.pos == "記号":
+                continue
             res += i.surface
         return res

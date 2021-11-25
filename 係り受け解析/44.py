@@ -1,7 +1,7 @@
 from typing import *
 from morph_class import Morph       # 別のPythonソースコードからクラスを持ってきている. 
 from morph_class import Chunck      
-from section4_init import init      
+from section5_init import init      
 from graphviz import Digraph        # グラフ描写用.
 
 # 文の係り受け解析結果を有向グラフで表す.
