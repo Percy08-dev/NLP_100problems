@@ -5,7 +5,7 @@ from section5_init import init
 from graphviz import Digraph        # グラフ描写用.
 
 # 文の係り受け解析結果を有向グラフで表す.
-def Dependencies(sentence:List[Chunck]):
+def dependencies(sentence:List[Chunck]):
     graph = Digraph(format="png")               # グラフのオブジェクト
     graph.attr('node', fontname='MS Gothic')    # 日本語用フォントの指定
 
@@ -30,7 +30,7 @@ def Dependencies(sentence:List[Chunck]):
 def main():
     text = init()
     # [print(i.srcs, i.dst) for i in text[1]]
-    Dependencies(text[1])   # グラフ描写. 
+    dependencies(text[1])   # グラフ描写. 
 
 
 
