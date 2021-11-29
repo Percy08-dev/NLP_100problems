@@ -1,3 +1,4 @@
+from os import remove
 from typing import *
 from morph_class import Morph       
 from morph_class import Chunck      
@@ -45,7 +46,6 @@ def particle_befor_verb_ext(sentence_chunks:List[Chunck], index:int):
     res = set()
     flame = []
     noun = []
-    remove_flag = True
 
     for phrase_data in sentence_chunks:
         flag = False                            # サ変接続名詞のフラグ
@@ -58,8 +58,6 @@ def particle_befor_verb_ext(sentence_chunks:List[Chunck], index:int):
                 append_flag = True              # 助詞を含む文節である為, フラグを立てる
                 if flag and word_data.surface == "を":      # サ変接続名詞に「を」が続く場合, 条件に合う為追加
                     noun.append(tmp + "を")
-                    if remove_flag and len(noun) > 1:       # サ変接続名詞に「を」が続く場合が2個以上ある場合
-                        remove_flag = False
 
 
             if word_data.pos == "名詞" and word_data.pos1 == "サ変接続":    # サ変接続名詞の検出
@@ -71,7 +69,7 @@ def particle_befor_verb_ext(sentence_chunks:List[Chunck], index:int):
         if append_flag:                                                     # 助詞を含む文節を追加
             flame.append(phrase_data.join())
 
-    if remove_flag and len(noun) > 0:
+    if len(noun) == 1:
         res.remove("を")
     
     return sorted(list(res)), flame, noun
