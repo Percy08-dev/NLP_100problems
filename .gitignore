@@ -6,3 +6,7 @@
 *.parsed
 *.gv
 30.readNeko.py
+*.tsv
+*.csv
+*.npz
+*.zip
